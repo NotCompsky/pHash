@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -O3 -DNDEBUG  -shared -Wl,-soname,libpHash-jni.so.4 -o libpHash-jni.so.4.2.0 CMakeFiles/pHash-jni.dir/dummy.cpp.o 

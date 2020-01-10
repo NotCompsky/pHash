@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -O3 -DNDEBUG  -shared -Wl,-soname,libpHash.so.1.0.0 -o Release/libpHash.so.1.0.0 CMakeFiles/pHash.dir/src/pHash.cpp.o CMakeFiles/pHash.dir/src/cimgffmpeg.cpp.o  -L/usr/local/lib -Wl,-rpath,/usr/local/lib: -lpng -ljpeg -ltiff -lpthread -lmpg123 -lavcodec -lavformat -lswscale -lavutil 

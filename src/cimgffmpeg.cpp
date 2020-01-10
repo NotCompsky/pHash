@@ -364,16 +364,27 @@ int GetNumberStreams(const char *file) {
 long GetNumberVideoFrames(const char *file) {
     long nb_frames = -1;
     AVFormatContext *pFormatCtx = avformat_alloc_context();
+    
+    // to include demuxers and codec : https://stackoverflow.com/questions/39778605/ffmpeg-avformat-open-input-not-working-invalid-data-found-when-processing-input
+    av_register_all();
+    avcodec_register_all();
+
+
     av_log_set_level(AV_LOG_QUIET);
     // Open video file
     if (avformat_open_input(&pFormatCtx, file, NULL, NULL)) {
         // Couldn't open file
+        printf("could not open video file: %s \n", file);
+
         goto freeContext;
     }
+
+    printf("codec: %s\n", pFormatCtx->video_codec_id);
 
     // Retrieve stream information
     if (avformat_find_stream_info(pFormatCtx, NULL) < 0) {
         // Couldn't find stream information
+        printf("could not find video file stream info\n");
         goto closeContext;
     }
 
@@ -395,7 +406,7 @@ long GetNumberVideoFrames(const char *file) {
         AVStream *str = pFormatCtx->streams[videoStream];
 
         nb_frames = str->nb_frames;
-
+        
         if (nb_frames <= 0) {
             nb_frames = (long)av_index_search_timestamp(
                 str, str->duration, AVSEEK_FLAG_ANY | AVSEEK_FLAG_BACKWARD);

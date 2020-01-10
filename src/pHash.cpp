@@ -526,10 +526,13 @@ CImgList<uint8_t> *ph_getKeyFramesFromVideo(const char *filename) {
 
 ulong64 *ph_dct_videohash(const char *filename, int &Length) {
     CImgList<uint8_t> *keyframes = ph_getKeyFramesFromVideo(filename);
-    if (keyframes == NULL) return NULL;
+    if (keyframes == NULL){
+        printf("no keyframes returned from video, returning NULL \n");
+        return NULL;
+    }
 
     Length = keyframes->size();
-
+    
     ulong64 *hash = (ulong64 *)malloc(sizeof(ulong64) * Length);
     const CImg<float> &C = dct_matrix;
     CImg<float> Ctransp = C.get_transpose();

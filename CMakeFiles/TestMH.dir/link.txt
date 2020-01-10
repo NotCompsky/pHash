@@ -1,0 +1,1 @@
+/usr/bin/c++  -O3 -DNDEBUG  -rdynamic CMakeFiles/TestMH.dir/examples/test_mhimagehash.cpp.o  -o TestMH  -L/usr/local/lib -Wl,-rpath,/usr/local/lib:/home/antoine/pHash/Release: Release/libpHash.so.1.0.0 -lpng -ljpeg -ltiff -lpthread -lmpg123 -lavcodec -lavformat -lswscale -lavutil 

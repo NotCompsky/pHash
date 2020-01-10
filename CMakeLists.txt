@@ -9,7 +9,7 @@ set(pHash_VERSION_MINOR 0)
 set(pHash_VERSION_PATCH 0)
 
 OPTION(WITH_AUDIO_HASH "Audio hash support" 0)
-OPTION(WITH_VIDEO_HASH "Video hash support" 0)
+OPTION(WITH_VIDEO_HASH "Video hash support" 1)
 
 set(HAVE_IMAGE_HASH 1)
 
@@ -109,6 +109,10 @@ add_executable(TestVideoHash "${EXAMPLEDIR}/test_dctvideohash.cpp")
 target_link_libraries (TestVideoHash pHash)
 install(TARGETS TestVideoHash DESTINATION bin)
 endif()
+
+add_executable(dev_video_compare "${EXAMPLEDIR}/dev_video_compare.cpp")
+target_link_libraries (dev_video_compare pHash)
+install(TARGETS dev_video_compare DESTINATION bin)
 
 include (InstallRequiredSystemLibraries)
 
