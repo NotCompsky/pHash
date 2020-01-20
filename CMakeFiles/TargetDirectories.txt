@@ -1,9 +1,10 @@
 /home/antoine/pHash/CMakeFiles/install/local.dir
 /home/antoine/pHash/CMakeFiles/install.dir
-/home/antoine/pHash/CMakeFiles/list_install_components.dir
 /home/antoine/pHash/CMakeFiles/rebuild_cache.dir
 /home/antoine/pHash/CMakeFiles/edit_cache.dir
 /home/antoine/pHash/CMakeFiles/package.dir
+/home/antoine/pHash/CMakeFiles/list_install_components.dir
+/home/antoine/pHash/CMakeFiles/dev_images_compare.dir
 /home/antoine/pHash/CMakeFiles/TestDCT.dir
 /home/antoine/pHash/CMakeFiles/package_source.dir
 /home/antoine/pHash/CMakeFiles/dev_video_compare.dir

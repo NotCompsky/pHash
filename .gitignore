@@ -1,4 +1,11 @@
-bindings/java/dummy.cpp
-build/*
-src/pHash.h
 videos/
+images/
+
+CMakeFiles/
+build/
+.vscode/
+release/
+
+
+.mp4
+.jpg

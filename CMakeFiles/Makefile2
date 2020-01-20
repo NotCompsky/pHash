@@ -60,6 +60,43 @@ CMAKE_SOURCE_DIR = /home/antoine/pHash
 CMAKE_BINARY_DIR = /home/antoine/pHash
 
 #=============================================================================
+# Target rules for target CMakeFiles/dev_images_compare.dir
+
+# All Build rule for target.
+CMakeFiles/dev_images_compare.dir/all: CMakeFiles/pHash.dir/all
+	$(MAKE) -f CMakeFiles/dev_images_compare.dir/build.make CMakeFiles/dev_images_compare.dir/depend
+	$(MAKE) -f CMakeFiles/dev_images_compare.dir/build.make CMakeFiles/dev_images_compare.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/antoine/pHash/CMakeFiles --progress-num=9,10 "Built target dev_images_compare"
+.PHONY : CMakeFiles/dev_images_compare.dir/all
+
+# Include target in all.
+all: CMakeFiles/dev_images_compare.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/dev_images_compare.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/antoine/pHash/CMakeFiles 5
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/dev_images_compare.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/antoine/pHash/CMakeFiles 0
+.PHONY : CMakeFiles/dev_images_compare.dir/rule
+
+# Convenience name for target.
+dev_images_compare: CMakeFiles/dev_images_compare.dir/rule
+
+.PHONY : dev_images_compare
+
+# clean rule for target.
+CMakeFiles/dev_images_compare.dir/clean:
+	$(MAKE) -f CMakeFiles/dev_images_compare.dir/build.make CMakeFiles/dev_images_compare.dir/clean
+.PHONY : CMakeFiles/dev_images_compare.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/dev_images_compare.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
 # Target rules for target CMakeFiles/TestDCT.dir
 
 # All Build rule for target.
@@ -103,7 +140,7 @@ clean: CMakeFiles/TestDCT.dir/clean
 CMakeFiles/dev_video_compare.dir/all: CMakeFiles/pHash.dir/all
 	$(MAKE) -f CMakeFiles/dev_video_compare.dir/build.make CMakeFiles/dev_video_compare.dir/depend
 	$(MAKE) -f CMakeFiles/dev_video_compare.dir/build.make CMakeFiles/dev_video_compare.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/antoine/pHash/CMakeFiles --progress-num=9,10 "Built target dev_video_compare"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/antoine/pHash/CMakeFiles --progress-num=11,12 "Built target dev_video_compare"
 .PHONY : CMakeFiles/dev_video_compare.dir/all
 
 # Include target in all.
@@ -140,7 +177,7 @@ clean: CMakeFiles/dev_video_compare.dir/clean
 CMakeFiles/pHash.dir/all:
 	$(MAKE) -f CMakeFiles/pHash.dir/build.make CMakeFiles/pHash.dir/depend
 	$(MAKE) -f CMakeFiles/pHash.dir/build.make CMakeFiles/pHash.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/antoine/pHash/CMakeFiles --progress-num=11,12,13 "Built target pHash"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/antoine/pHash/CMakeFiles --progress-num=13,14,15 "Built target pHash"
 .PHONY : CMakeFiles/pHash.dir/all
 
 # Include target in all.
@@ -324,7 +361,7 @@ bindings/java/preinstall:
 bindings/java/CMakeFiles/pHash-jni.dir/all:
 	$(MAKE) -f bindings/java/CMakeFiles/pHash-jni.dir/build.make bindings/java/CMakeFiles/pHash-jni.dir/depend
 	$(MAKE) -f bindings/java/CMakeFiles/pHash-jni.dir/build.make bindings/java/CMakeFiles/pHash-jni.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/antoine/pHash/CMakeFiles --progress-num=14,15 "Built target pHash-jni"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/antoine/pHash/CMakeFiles --progress-num=16,17 "Built target pHash-jni"
 .PHONY : bindings/java/CMakeFiles/pHash-jni.dir/all
 
 # Include target in all.

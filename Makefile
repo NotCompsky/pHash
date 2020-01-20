@@ -80,16 +80,6 @@ install/fast: preinstall/fast
 	/usr/bin/cmake -P cmake_install.cmake
 .PHONY : install/fast
 
-# Special rule for the target list_install_components
-list_install_components:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
-.PHONY : list_install_components
-
-# Special rule for the target list_install_components
-list_install_components/fast: list_install_components
-
-.PHONY : list_install_components/fast
-
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
@@ -122,6 +112,16 @@ package: preinstall
 package/fast: package
 
 .PHONY : package/fast
+
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
+.PHONY : list_install_components
+
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
+
+.PHONY : list_install_components/fast
 
 # Special rule for the target package_source
 package_source:
@@ -177,6 +177,19 @@ preinstall/fast:
 depend:
 	$(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
+
+#=============================================================================
+# Target rules for targets named dev_images_compare
+
+# Build rule for target.
+dev_images_compare: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 dev_images_compare
+.PHONY : dev_images_compare
+
+# fast build rule for target.
+dev_images_compare/fast:
+	$(MAKE) -f CMakeFiles/dev_images_compare.dir/build.make CMakeFiles/dev_images_compare.dir/build
+.PHONY : dev_images_compare/fast
 
 #=============================================================================
 # Target rules for targets named TestDCT
@@ -268,6 +281,33 @@ pHash-jni: cmake_check_build_system
 pHash-jni/fast:
 	$(MAKE) -f bindings/java/CMakeFiles/pHash-jni.dir/build.make bindings/java/CMakeFiles/pHash-jni.dir/build
 .PHONY : pHash-jni/fast
+
+examples/dev_images_compare.o: examples/dev_images_compare.cpp.o
+
+.PHONY : examples/dev_images_compare.o
+
+# target to build an object file
+examples/dev_images_compare.cpp.o:
+	$(MAKE) -f CMakeFiles/dev_images_compare.dir/build.make CMakeFiles/dev_images_compare.dir/examples/dev_images_compare.cpp.o
+.PHONY : examples/dev_images_compare.cpp.o
+
+examples/dev_images_compare.i: examples/dev_images_compare.cpp.i
+
+.PHONY : examples/dev_images_compare.i
+
+# target to preprocess a source file
+examples/dev_images_compare.cpp.i:
+	$(MAKE) -f CMakeFiles/dev_images_compare.dir/build.make CMakeFiles/dev_images_compare.dir/examples/dev_images_compare.cpp.i
+.PHONY : examples/dev_images_compare.cpp.i
+
+examples/dev_images_compare.s: examples/dev_images_compare.cpp.s
+
+.PHONY : examples/dev_images_compare.s
+
+# target to generate assembly for a file
+examples/dev_images_compare.cpp.s:
+	$(MAKE) -f CMakeFiles/dev_images_compare.dir/build.make CMakeFiles/dev_images_compare.dir/examples/dev_images_compare.cpp.s
+.PHONY : examples/dev_images_compare.cpp.s
 
 examples/dev_video_compare.o: examples/dev_video_compare.cpp.o
 
@@ -466,10 +506,11 @@ help:
 	@echo "... depend"
 	@echo "... install/local"
 	@echo "... install"
-	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... package"
+	@echo "... list_install_components"
+	@echo "... dev_images_compare"
 	@echo "... TestDCT"
 	@echo "... package_source"
 	@echo "... dev_video_compare"
@@ -479,6 +520,9 @@ help:
 	@echo "... install/strip"
 	@echo "... TestVideoHash"
 	@echo "... pHash-jni"
+	@echo "... examples/dev_images_compare.o"
+	@echo "... examples/dev_images_compare.i"
+	@echo "... examples/dev_images_compare.s"
 	@echo "... examples/dev_video_compare.o"
 	@echo "... examples/dev_video_compare.i"
 	@echo "... examples/dev_video_compare.s"
