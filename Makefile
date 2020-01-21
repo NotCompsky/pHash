@@ -102,6 +102,16 @@ edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
 
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
+.PHONY : list_install_components
+
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
+
+.PHONY : list_install_components/fast
+
 # Special rule for the target package
 package: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
@@ -112,16 +122,6 @@ package: preinstall
 package/fast: package
 
 .PHONY : package/fast
-
-# Special rule for the target list_install_components
-list_install_components:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
-.PHONY : list_install_components
-
-# Special rule for the target list_install_components
-list_install_components/fast: list_install_components
-
-.PHONY : list_install_components/fast
 
 # Special rule for the target package_source
 package_source:
@@ -190,6 +190,19 @@ dev_images_compare: cmake_check_build_system
 dev_images_compare/fast:
 	$(MAKE) -f CMakeFiles/dev_images_compare.dir/build.make CMakeFiles/dev_images_compare.dir/build
 .PHONY : dev_images_compare/fast
+
+#=============================================================================
+# Target rules for targets named dev_video_compare_threads
+
+# Build rule for target.
+dev_video_compare_threads: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 dev_video_compare_threads
+.PHONY : dev_video_compare_threads
+
+# fast build rule for target.
+dev_video_compare_threads/fast:
+	$(MAKE) -f CMakeFiles/dev_video_compare_threads.dir/build.make CMakeFiles/dev_video_compare_threads.dir/build
+.PHONY : dev_video_compare_threads/fast
 
 #=============================================================================
 # Target rules for targets named TestDCT
@@ -335,6 +348,33 @@ examples/dev_video_compare.s: examples/dev_video_compare.cpp.s
 examples/dev_video_compare.cpp.s:
 	$(MAKE) -f CMakeFiles/dev_video_compare.dir/build.make CMakeFiles/dev_video_compare.dir/examples/dev_video_compare.cpp.s
 .PHONY : examples/dev_video_compare.cpp.s
+
+examples/dev_video_compare_threads.o: examples/dev_video_compare_threads.cpp.o
+
+.PHONY : examples/dev_video_compare_threads.o
+
+# target to build an object file
+examples/dev_video_compare_threads.cpp.o:
+	$(MAKE) -f CMakeFiles/dev_video_compare_threads.dir/build.make CMakeFiles/dev_video_compare_threads.dir/examples/dev_video_compare_threads.cpp.o
+.PHONY : examples/dev_video_compare_threads.cpp.o
+
+examples/dev_video_compare_threads.i: examples/dev_video_compare_threads.cpp.i
+
+.PHONY : examples/dev_video_compare_threads.i
+
+# target to preprocess a source file
+examples/dev_video_compare_threads.cpp.i:
+	$(MAKE) -f CMakeFiles/dev_video_compare_threads.dir/build.make CMakeFiles/dev_video_compare_threads.dir/examples/dev_video_compare_threads.cpp.i
+.PHONY : examples/dev_video_compare_threads.cpp.i
+
+examples/dev_video_compare_threads.s: examples/dev_video_compare_threads.cpp.s
+
+.PHONY : examples/dev_video_compare_threads.s
+
+# target to generate assembly for a file
+examples/dev_video_compare_threads.cpp.s:
+	$(MAKE) -f CMakeFiles/dev_video_compare_threads.dir/build.make CMakeFiles/dev_video_compare_threads.dir/examples/dev_video_compare_threads.cpp.s
+.PHONY : examples/dev_video_compare_threads.cpp.s
 
 examples/test_dctvideohash.o: examples/test_dctvideohash.cpp.o
 
@@ -508,9 +548,10 @@ help:
 	@echo "... install"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... package"
 	@echo "... list_install_components"
 	@echo "... dev_images_compare"
+	@echo "... package"
+	@echo "... dev_video_compare_threads"
 	@echo "... TestDCT"
 	@echo "... package_source"
 	@echo "... dev_video_compare"
@@ -526,6 +567,9 @@ help:
 	@echo "... examples/dev_video_compare.o"
 	@echo "... examples/dev_video_compare.i"
 	@echo "... examples/dev_video_compare.s"
+	@echo "... examples/dev_video_compare_threads.o"
+	@echo "... examples/dev_video_compare_threads.i"
+	@echo "... examples/dev_video_compare_threads.s"
 	@echo "... examples/test_dctvideohash.o"
 	@echo "... examples/test_dctvideohash.i"
 	@echo "... examples/test_dctvideohash.s"

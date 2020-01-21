@@ -114,6 +114,10 @@ add_executable(dev_video_compare "${EXAMPLEDIR}/dev_video_compare.cpp")
 target_link_libraries (dev_video_compare pHash)
 install(TARGETS dev_video_compare DESTINATION bin)
 
+add_executable(dev_video_compare_threads "${EXAMPLEDIR}/dev_video_compare_threads.cpp")
+target_link_libraries (dev_video_compare_threads pHash)
+install(TARGETS dev_video_compare_threads DESTINATION bin)
+
 add_executable(dev_images_compare "${EXAMPLEDIR}/dev_images_compare.cpp")
 target_link_libraries (dev_images_compare pHash)
 install(TARGETS dev_images_compare DESTINATION bin)

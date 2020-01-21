@@ -379,7 +379,7 @@ long GetNumberVideoFrames(const char *file) {
         goto freeContext;
     }
 
-    printf("codec: %s\n", pFormatCtx->video_codec_id);
+    //printf("codec: %s\n", pFormatCtx->video_codec_id);
 
     // Retrieve stream information
     if (avformat_find_stream_info(pFormatCtx, NULL) < 0) {
