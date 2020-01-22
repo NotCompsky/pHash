@@ -276,11 +276,15 @@ int main(int argc, char **argv) {
 
     std::ofstream outfile("toto.csv");
 
-    for(int i=0; i< dir1_count; i++){
+    for(int i=-1; i< dir1_count; i++){
         for(int j =0; j < dir2_count; j++){
-            
-            outfile << dist[i][j];
-            
+            //print headers
+            if (i == -1){
+                outfile << files[j]
+            }else{
+                outfile << dist[i][j];
+            }
+
             if(j < dir2_count-1){
                 outfile << ',';
             }
