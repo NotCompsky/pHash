@@ -31,6 +31,11 @@ bool cmp_lt_imp(struct ph_imagepoint dpa, struct ph_imagepoint dpb) {
     if (result < 0) return TRUE;
     return FALSE;
 }
+
+int count_dir_elements(char *dir_name ){
+    return 0;
+}
+
 /** TEST for image DCT hash function
  * the program takes in two directory names, each image from those directories will be compared with one another, 
  * the output of this is a csv file containing the distance between the hashes of each image 
@@ -239,7 +244,7 @@ int main(int argc, char **argv) {
                 // write down distances
                 outfile << dist[i][j] ;
             }
-            
+
             if (j < nbfiles2 ){
                     outfile << ","; 
                 } 

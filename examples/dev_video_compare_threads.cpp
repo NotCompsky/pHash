@@ -1,6 +1,8 @@
 
 #include <iostream>
-#include <fstream> 
+#include <fstream>
+#include <string>
+#include <sstream> 
 
 #include <dirent.h>
 #include <errno.h>
@@ -92,6 +94,18 @@ vector<string> slice(const vector<string>& v, int start=0, int end=-1) {
     return nv;
 }
 
+vector<string> split_string(string& str, char delim = ' ')
+{
+    vector<string> split;
+    std::stringstream ss(str);
+    std::string token;
+    while (std::getline(ss, token, delim)) {
+        split.push_back(token);
+    }
+
+    return split;
+}
+
 void task(vector<string> paths, int *lengths, ulong64 **hashes) {
 	char path[100];
 	path[0] = '\0';
@@ -148,6 +162,17 @@ int main(int argc, char **argv) {
     
     //getting the list of paths
     vector<string> paths = GetListOfPath(dir_name);
+    //extract filenames from paths for labeling csv file
+    vector<string> files;
+    for (auto& path: paths){
+        vector<string> temp = split_string(path, '/');
+        if(temp.size() > 0){
+            files.push_back(temp[temp.size()-1]);
+        }else{
+            printf("could not split out filename\n");
+        }
+    } 
+
     vector<string> paths2 = GetListOfPath(dir_name2);
 
     /*
@@ -166,9 +191,14 @@ int main(int argc, char **argv) {
     int position_in_vector = 0;
     for (int i = 0; i < nb_threads; ++i)
     {
-    	//printf("Thread %d slice : %d à %d \n", i, position_in_vector, (position_in_vector+nb_path_per_thread));
+        if(i == nb_threads-1){
+            //printf("Thread %d slice : %d à %d \n", i, position_in_vector, (position_in_vector+nb_path_per_thread));
+    	    vector<string> thread_paths = slice(paths, position_in_vector, paths.size()-1 );
+        }else{
+            //printf("Thread %d slice : %d à %d \n", i, position_in_vector, (position_in_vector+nb_path_per_thread));
+    	    vector<string> thread_paths = slice(paths, position_in_vector, position_in_vector+nb_path_per_thread);
+        }
     	
-    	vector<string> thread_paths = slice(paths, position_in_vector, position_in_vector+nb_path_per_thread);
     	/*
     	for (int i = 0; i < thread_paths.size(); i++) 
         	cout << thread_paths[i] << "\n";
@@ -196,15 +226,21 @@ int main(int argc, char **argv) {
     position_in_vector = 0;
     for (int i = 0; i < nb_threads; ++i)
     {
-    	//printf("Thread %d slice : %d à %d \n", i, position_in_vector, (position_in_vector+nb_path_per_thread));
+        if( i == nb_threads -1){
+            //printf("Thread %d slice : %d à %d \n", i, position_in_vector, (position_in_vector+nb_path_per_thread));
+    	    vector<string> thread_paths = slice(paths2, position_in_vector, paths2.size()-1);
+        }else{
+            //printf("Thread %d slice : %d à %d \n", i, position_in_vector, (position_in_vector+nb_path_per_thread));
+            vector<string> thread_paths = slice(paths2, position_in_vector, position_in_vector+nb_path_per_thread);
+        }
+
     	
-    	vector<string> thread_paths = slice(paths2, position_in_vector, position_in_vector+nb_path_per_thread);
     	/*
     	for (int i = 0; i < thread_paths.size(); i++) 
         	cout << thread_paths[i] << "\n";
         */
 
-        threads2[i] = thread(task, thread_paths, &lengths[position_in_vector], &hashes[position_in_vector]);
+        threads2[i] = thread(task, thread_paths, &lengths2[position_in_vector], &hashes2[position_in_vector]);
 
         position_in_vector = position_in_vector + nb_path_per_thread;
     }
@@ -222,9 +258,9 @@ int main(int argc, char **argv) {
     //now we have the hashes and can move to calculating distance
     
     
-    float** dist = new float*[dir2_count];
+    int** dist = new int*[dir2_count];
     for(int i = 0; i < dir2_count; ++i)
-        dist[i] = new float[dir1_count];
+        dist[i] = new int[dir1_count];
 
     printf("calculating video distances\n");
 
@@ -232,20 +268,24 @@ int main(int argc, char **argv) {
         //for each original file, compare with all other video hashes
         for(int j = 0; j < dir2_count; j++){
             printf("dist btween vid: %d, and vid: %d\n", i,j);
-            dist[i][j] = ph_dct_videohash_dist(hashes[i], lengths[i], hashes2[j], lengths2[j]);
+            dist[i][j] = ph_hamming_distance(hashes[i], hashes2[j]);
         }
     }
 
 
-    std::ofstream outfile("toto.txt");
+    std::ofstream outfile("toto.csv");
 
-    outfile << "my text here!" << std::endl;
-
-    for (int i =0; i < 10; i++){
-
-        outfile << i << "," << std::endl ;
+    for(int i=0; i< dir1_count; i++){
+        for(int j =0; j < dir2_count; j++){
+            
+            outfile << dist[i][j];
+            
+            if(j < dir2_count-1){
+                outfile << ',';
+            }
+        }
+        outfile << endl;
     }
-
     //free up our distance array
     delete(dist);
     outfile.close();
