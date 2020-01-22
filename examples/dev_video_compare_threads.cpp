@@ -189,14 +189,15 @@ int main(int argc, char **argv) {
     std::vector<thread> threads(nb_threads);
     int nb_path_per_thread = paths.size()/(nb_threads-1);
     int position_in_vector = 0;
+    vector<string> thread_paths;
     for (int i = 0; i < nb_threads; ++i)
     {
         if(i == nb_threads-1){
-            //printf("Thread %d slice : %d à %d \n", i, position_in_vector, (position_in_vector+nb_path_per_thread));
-    	    vector<string> thread_paths = slice(paths, position_in_vector, paths.size()-1 );
+            //printf("Thread %d slice : %d à %d \n", i, position_in_vector, (int)(paths.size()-1) );
+    	    thread_paths = slice(paths, position_in_vector, paths.size() );
         }else{
             //printf("Thread %d slice : %d à %d \n", i, position_in_vector, (position_in_vector+nb_path_per_thread));
-    	    vector<string> thread_paths = slice(paths, position_in_vector, position_in_vector+nb_path_per_thread);
+    	    thread_paths = slice(paths, position_in_vector, position_in_vector+nb_path_per_thread);
         }
     	
     	/*
@@ -226,12 +227,12 @@ int main(int argc, char **argv) {
     position_in_vector = 0;
     for (int i = 0; i < nb_threads; ++i)
     {
-        if( i == nb_threads -1){
-            //printf("Thread %d slice : %d à %d \n", i, position_in_vector, (position_in_vector+nb_path_per_thread));
-    	    vector<string> thread_paths = slice(paths2, position_in_vector, paths2.size()-1);
+        if( i == nb_threads-1){
+            //printf("Thread %d slice : %d à %d \n", i, position_in_vector, (int)(paths2.size()-1) );
+    	    thread_paths = slice(paths2, position_in_vector, paths2.size());
         }else{
             //printf("Thread %d slice : %d à %d \n", i, position_in_vector, (position_in_vector+nb_path_per_thread));
-            vector<string> thread_paths = slice(paths2, position_in_vector, position_in_vector+nb_path_per_thread);
+            thread_paths = slice(paths2, position_in_vector, position_in_vector+nb_path_per_thread);
         }
 
     	
@@ -267,8 +268,8 @@ int main(int argc, char **argv) {
     for(int i =0; i < dir1_count; i++){
         //for each original file, compare with all other video hashes
         for(int j = 0; j < dir2_count; j++){
-            printf("dist btween vid: %d, and vid: %d\n", i,j);
-            dist[i][j] = ph_hamming_distance(hashes[i], hashes2[j]);
+            //printf("dist btween vid: %d, and vid: %d\n", i,j);
+            dist[i][j] = ph_hamming_distance(*hashes[i], *hashes2[j]);
         }
     }
 
