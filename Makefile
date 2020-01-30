@@ -56,17 +56,71 @@ CMAKE_BINARY_DIR = /home/antoine/pHash
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target install/local
-install/local: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local
+# Special rule for the target package_source
+package_source:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
+	/usr/bin/cpack --config ./CPackSourceConfig.cmake /home/antoine/pHash/CPackSourceConfig.cmake
+.PHONY : package_source
 
-# Special rule for the target install/local
-install/local/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local/fast
+# Special rule for the target package_source
+package_source/fast: package_source
+
+.PHONY : package_source/fast
+
+# Special rule for the target package
+package: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
+	/usr/bin/cpack --config ./CPackConfig.cmake
+.PHONY : package
+
+# Special rule for the target package
+package/fast: package
+
+.PHONY : package/fast
+
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
+
+# Special rule for the target install/strip
+install/strip/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip/fast
+
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
+.PHONY : list_install_components
+
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
+
+.PHONY : list_install_components/fast
+
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+.PHONY : edit_cache
+
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
+
+.PHONY : edit_cache/fast
+
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
+
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+
+.PHONY : rebuild_cache/fast
 
 # Special rule for the target install
 install: preinstall
@@ -80,71 +134,17 @@ install/fast: preinstall/fast
 	/usr/bin/cmake -P cmake_install.cmake
 .PHONY : install/fast
 
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
 
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
-
-.PHONY : rebuild_cache/fast
-
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-.PHONY : edit_cache
-
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
-
-.PHONY : edit_cache/fast
-
-# Special rule for the target list_install_components
-list_install_components:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
-.PHONY : list_install_components
-
-# Special rule for the target list_install_components
-list_install_components/fast: list_install_components
-
-.PHONY : list_install_components/fast
-
-# Special rule for the target package
-package: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool..."
-	/usr/bin/cpack --config ./CPackConfig.cmake
-.PHONY : package
-
-# Special rule for the target package
-package/fast: package
-
-.PHONY : package/fast
-
-# Special rule for the target package_source
-package_source:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
-	/usr/bin/cpack --config ./CPackSourceConfig.cmake /home/antoine/pHash/CPackSourceConfig.cmake
-.PHONY : package_source
-
-# Special rule for the target package_source
-package_source/fast: package_source
-
-.PHONY : package_source/fast
-
-# Special rule for the target install/strip
-install/strip: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip
-
-# Special rule for the target install/strip
-install/strip/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip/fast
+# Special rule for the target install/local
+install/local/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -179,17 +179,82 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named dev_images_compare
+# Target rules for targets named TestVideoHash
 
 # Build rule for target.
-dev_images_compare: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 dev_images_compare
-.PHONY : dev_images_compare
+TestVideoHash: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 TestVideoHash
+.PHONY : TestVideoHash
 
 # fast build rule for target.
-dev_images_compare/fast:
-	$(MAKE) -f CMakeFiles/dev_images_compare.dir/build.make CMakeFiles/dev_images_compare.dir/build
-.PHONY : dev_images_compare/fast
+TestVideoHash/fast:
+	$(MAKE) -f CMakeFiles/TestVideoHash.dir/build.make CMakeFiles/TestVideoHash.dir/build
+.PHONY : TestVideoHash/fast
+
+#=============================================================================
+# Target rules for targets named TestMH
+
+# Build rule for target.
+TestMH: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 TestMH
+.PHONY : TestMH
+
+# fast build rule for target.
+TestMH/fast:
+	$(MAKE) -f CMakeFiles/TestMH.dir/build.make CMakeFiles/TestMH.dir/build
+.PHONY : TestMH/fast
+
+#=============================================================================
+# Target rules for targets named pHash
+
+# Build rule for target.
+pHash: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 pHash
+.PHONY : pHash
+
+# fast build rule for target.
+pHash/fast:
+	$(MAKE) -f CMakeFiles/pHash.dir/build.make CMakeFiles/pHash.dir/build
+.PHONY : pHash/fast
+
+#=============================================================================
+# Target rules for targets named dev_images_compare_threads
+
+# Build rule for target.
+dev_images_compare_threads: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 dev_images_compare_threads
+.PHONY : dev_images_compare_threads
+
+# fast build rule for target.
+dev_images_compare_threads/fast:
+	$(MAKE) -f CMakeFiles/dev_images_compare_threads.dir/build.make CMakeFiles/dev_images_compare_threads.dir/build
+.PHONY : dev_images_compare_threads/fast
+
+#=============================================================================
+# Target rules for targets named TestRadish
+
+# Build rule for target.
+TestRadish: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 TestRadish
+.PHONY : TestRadish
+
+# fast build rule for target.
+TestRadish/fast:
+	$(MAKE) -f CMakeFiles/TestRadish.dir/build.make CMakeFiles/TestRadish.dir/build
+.PHONY : TestRadish/fast
+
+#=============================================================================
+# Target rules for targets named dev_video_compare
+
+# Build rule for target.
+dev_video_compare: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 dev_video_compare
+.PHONY : dev_video_compare
+
+# fast build rule for target.
+dev_video_compare/fast:
+	$(MAKE) -f CMakeFiles/dev_video_compare.dir/build.make CMakeFiles/dev_video_compare.dir/build
+.PHONY : dev_video_compare/fast
 
 #=============================================================================
 # Target rules for targets named dev_video_compare_threads
@@ -218,69 +283,17 @@ TestDCT/fast:
 .PHONY : TestDCT/fast
 
 #=============================================================================
-# Target rules for targets named dev_video_compare
+# Target rules for targets named dev_images_compare
 
 # Build rule for target.
-dev_video_compare: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 dev_video_compare
-.PHONY : dev_video_compare
+dev_images_compare: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 dev_images_compare
+.PHONY : dev_images_compare
 
 # fast build rule for target.
-dev_video_compare/fast:
-	$(MAKE) -f CMakeFiles/dev_video_compare.dir/build.make CMakeFiles/dev_video_compare.dir/build
-.PHONY : dev_video_compare/fast
-
-#=============================================================================
-# Target rules for targets named pHash
-
-# Build rule for target.
-pHash: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 pHash
-.PHONY : pHash
-
-# fast build rule for target.
-pHash/fast:
-	$(MAKE) -f CMakeFiles/pHash.dir/build.make CMakeFiles/pHash.dir/build
-.PHONY : pHash/fast
-
-#=============================================================================
-# Target rules for targets named TestRadish
-
-# Build rule for target.
-TestRadish: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 TestRadish
-.PHONY : TestRadish
-
-# fast build rule for target.
-TestRadish/fast:
-	$(MAKE) -f CMakeFiles/TestRadish.dir/build.make CMakeFiles/TestRadish.dir/build
-.PHONY : TestRadish/fast
-
-#=============================================================================
-# Target rules for targets named TestMH
-
-# Build rule for target.
-TestMH: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 TestMH
-.PHONY : TestMH
-
-# fast build rule for target.
-TestMH/fast:
-	$(MAKE) -f CMakeFiles/TestMH.dir/build.make CMakeFiles/TestMH.dir/build
-.PHONY : TestMH/fast
-
-#=============================================================================
-# Target rules for targets named TestVideoHash
-
-# Build rule for target.
-TestVideoHash: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 TestVideoHash
-.PHONY : TestVideoHash
-
-# fast build rule for target.
-TestVideoHash/fast:
-	$(MAKE) -f CMakeFiles/TestVideoHash.dir/build.make CMakeFiles/TestVideoHash.dir/build
-.PHONY : TestVideoHash/fast
+dev_images_compare/fast:
+	$(MAKE) -f CMakeFiles/dev_images_compare.dir/build.make CMakeFiles/dev_images_compare.dir/build
+.PHONY : dev_images_compare/fast
 
 #=============================================================================
 # Target rules for targets named pHash-jni
@@ -321,6 +334,33 @@ examples/dev_images_compare.s: examples/dev_images_compare.cpp.s
 examples/dev_images_compare.cpp.s:
 	$(MAKE) -f CMakeFiles/dev_images_compare.dir/build.make CMakeFiles/dev_images_compare.dir/examples/dev_images_compare.cpp.s
 .PHONY : examples/dev_images_compare.cpp.s
+
+examples/dev_images_compare_threads.o: examples/dev_images_compare_threads.cpp.o
+
+.PHONY : examples/dev_images_compare_threads.o
+
+# target to build an object file
+examples/dev_images_compare_threads.cpp.o:
+	$(MAKE) -f CMakeFiles/dev_images_compare_threads.dir/build.make CMakeFiles/dev_images_compare_threads.dir/examples/dev_images_compare_threads.cpp.o
+.PHONY : examples/dev_images_compare_threads.cpp.o
+
+examples/dev_images_compare_threads.i: examples/dev_images_compare_threads.cpp.i
+
+.PHONY : examples/dev_images_compare_threads.i
+
+# target to preprocess a source file
+examples/dev_images_compare_threads.cpp.i:
+	$(MAKE) -f CMakeFiles/dev_images_compare_threads.dir/build.make CMakeFiles/dev_images_compare_threads.dir/examples/dev_images_compare_threads.cpp.i
+.PHONY : examples/dev_images_compare_threads.cpp.i
+
+examples/dev_images_compare_threads.s: examples/dev_images_compare_threads.cpp.s
+
+.PHONY : examples/dev_images_compare_threads.s
+
+# target to generate assembly for a file
+examples/dev_images_compare_threads.cpp.s:
+	$(MAKE) -f CMakeFiles/dev_images_compare_threads.dir/build.make CMakeFiles/dev_images_compare_threads.dir/examples/dev_images_compare_threads.cpp.s
+.PHONY : examples/dev_images_compare_threads.cpp.s
 
 examples/dev_video_compare.o: examples/dev_video_compare.cpp.o
 
@@ -544,26 +584,30 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... install/local"
-	@echo "... install"
-	@echo "... rebuild_cache"
-	@echo "... edit_cache"
-	@echo "... list_install_components"
-	@echo "... dev_images_compare"
-	@echo "... package"
-	@echo "... dev_video_compare_threads"
-	@echo "... TestDCT"
-	@echo "... package_source"
-	@echo "... dev_video_compare"
-	@echo "... pHash"
-	@echo "... TestRadish"
-	@echo "... TestMH"
-	@echo "... install/strip"
 	@echo "... TestVideoHash"
+	@echo "... TestMH"
+	@echo "... pHash"
+	@echo "... dev_images_compare_threads"
+	@echo "... TestRadish"
+	@echo "... dev_video_compare"
+	@echo "... package_source"
+	@echo "... dev_video_compare_threads"
+	@echo "... package"
+	@echo "... install/strip"
+	@echo "... TestDCT"
+	@echo "... dev_images_compare"
+	@echo "... list_install_components"
+	@echo "... edit_cache"
+	@echo "... rebuild_cache"
+	@echo "... install"
+	@echo "... install/local"
 	@echo "... pHash-jni"
 	@echo "... examples/dev_images_compare.o"
 	@echo "... examples/dev_images_compare.i"
 	@echo "... examples/dev_images_compare.s"
+	@echo "... examples/dev_images_compare_threads.o"
+	@echo "... examples/dev_images_compare_threads.i"
+	@echo "... examples/dev_images_compare_threads.s"
 	@echo "... examples/dev_video_compare.o"
 	@echo "... examples/dev_video_compare.i"
 	@echo "... examples/dev_video_compare.s"

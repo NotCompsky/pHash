@@ -55,13 +55,14 @@ set(CMAKE_MAKEFILE_PRODUCTS
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "CMakeFiles/dev_images_compare.dir/DependInfo.cmake"
+  "CMakeFiles/TestVideoHash.dir/DependInfo.cmake"
+  "CMakeFiles/TestMH.dir/DependInfo.cmake"
+  "CMakeFiles/pHash.dir/DependInfo.cmake"
+  "CMakeFiles/dev_images_compare_threads.dir/DependInfo.cmake"
+  "CMakeFiles/TestRadish.dir/DependInfo.cmake"
+  "CMakeFiles/dev_video_compare.dir/DependInfo.cmake"
   "CMakeFiles/dev_video_compare_threads.dir/DependInfo.cmake"
   "CMakeFiles/TestDCT.dir/DependInfo.cmake"
-  "CMakeFiles/dev_video_compare.dir/DependInfo.cmake"
-  "CMakeFiles/pHash.dir/DependInfo.cmake"
-  "CMakeFiles/TestRadish.dir/DependInfo.cmake"
-  "CMakeFiles/TestMH.dir/DependInfo.cmake"
-  "CMakeFiles/TestVideoHash.dir/DependInfo.cmake"
+  "CMakeFiles/dev_images_compare.dir/DependInfo.cmake"
   "bindings/java/CMakeFiles/pHash-jni.dir/DependInfo.cmake"
   )

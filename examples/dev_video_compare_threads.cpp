@@ -280,7 +280,7 @@ int main(int argc, char **argv) {
         for(int j =0; j < dir2_count; j++){
             //print headers
             if (i == -1){
-                outfile << files[j]
+                outfile << files[j];
             }else{
                 outfile << dist[i][j];
             }
