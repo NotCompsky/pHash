@@ -103,7 +103,7 @@ vector<string> slice(const vector<string>& v, int start=0, int end=-1) {
 
 
 
-void task( vector<string> paths, vector<ph_imagepoint> *hashlist, int *id){
+void task( vector<string> paths, vector<ph_imagepoint> *hashlist){
     //task for threads, reads through the files in the paths list
 
     for(std::vector<string>::size_type i = 0; i != paths.size(); i++){
@@ -174,11 +174,12 @@ int main(int argc, char **argv) {
         }
 
         thread_running[i] = true;
-        threads[i] = thread(task, thread_paths, &hashlist1, &i);
+        threads[i] = thread(task, thread_paths, &hashlist1);
 
 
         pos += elems_per_thread;
     }
+
     // wait for all threads to finish executing
     for (int i =0; i < nb_threads; i++) {
         cout << "waiting for thread " << i << endl;

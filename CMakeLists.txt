@@ -118,6 +118,10 @@ add_executable(dev_video_compare_threads "${EXAMPLEDIR}/dev_video_compare_thread
 target_link_libraries (dev_video_compare_threads pHash)
 install(TARGETS dev_video_compare_threads DESTINATION bin)
 
+add_executable(demo_videohash "${EXAMPLEDIR}/demo_videohash.cpp")
+target_link_libraries (demo_videohash pHash)
+install(TARGETS demo_videohash DESTINATION bin)
+
 add_executable(dev_images_compare "${EXAMPLEDIR}/dev_images_compare.cpp")
 target_link_libraries (dev_images_compare pHash)
 install(TARGETS dev_images_compare DESTINATION bin)
@@ -125,6 +129,12 @@ install(TARGETS dev_images_compare DESTINATION bin)
 add_executable(dev_images_compare_threads "${EXAMPLEDIR}/dev_images_compare_threads.cpp")
 target_link_libraries (dev_images_compare_threads pHash)
 install(TARGETS dev_images_compare_threads DESTINATION bin)
+
+add_executable(demo_imagehash "${EXAMPLEDIR}/demo_imagehash.cpp")
+target_link_libraries (demo_imagehash pHash)
+install(TARGETS demo_imagehash DESTINATION bin)
+
+
 
 include (InstallRequiredSystemLibraries)
 

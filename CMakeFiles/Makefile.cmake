@@ -64,5 +64,7 @@ set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/dev_video_compare_threads.dir/DependInfo.cmake"
   "CMakeFiles/TestDCT.dir/DependInfo.cmake"
   "CMakeFiles/dev_images_compare.dir/DependInfo.cmake"
+  "CMakeFiles/demo_videohash.dir/DependInfo.cmake"
+  "CMakeFiles/demo_imagehash.dir/DependInfo.cmake"
   "bindings/java/CMakeFiles/pHash-jni.dir/DependInfo.cmake"
   )

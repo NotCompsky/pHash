@@ -173,8 +173,17 @@ int main(int argc, char **argv) {
         }
     } 
 
+    //also getting file names for second dir
     vector<string> paths2 = GetListOfPath(dir_name2);
-
+    vector<string> files2;
+    for (auto& path: paths2){
+        vector<string> temp = split_string(path, '/');
+        if(temp.size() > 0){
+            files2.push_back(temp[temp.size()-1]);
+        }else{
+            printf("could not split out filename\n");
+        }
+    }
     /*
     //printing path Recived
     printf("Paths of videos to Hash:\n");
@@ -274,8 +283,8 @@ int main(int argc, char **argv) {
     }
 
 
-    std::ofstream outfile("toto.csv");
-
+    std::ofstream outfile("hash.csv");
+    /*
     for(int i=-1; i< dir1_count; i++){
         for(int j =0; j < dir2_count; j++){
             //print headers
@@ -291,6 +300,16 @@ int main(int argc, char **argv) {
         }
         outfile << endl;
     }
+
+    */
+
+    for(int i = 0; i < dir1_count; i++){
+        outfile << files[i] << ',' << *hashes[i] << endl;
+    }
+    for(int i = 0; i < dir2_count; i++){
+        outfile << files2[i] << ',' << *hashes2[i] << endl;
+    }
+    
     //free up our distance array
     delete(dist);
     outfile.close();

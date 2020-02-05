@@ -56,6 +56,30 @@ CMAKE_BINARY_DIR = /home/antoine/pHash
 #=============================================================================
 # Targets provided globally by CMake.
 
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
+
+# Special rule for the target install/local
+install/local/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local/fast
+
+# Special rule for the target install
+install: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install
+
+# Special rule for the target install
+install/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install/fast
+
 # Special rule for the target package_source
 package_source:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Run CPack packaging tool for source..."
@@ -121,30 +145,6 @@ rebuild_cache:
 rebuild_cache/fast: rebuild_cache
 
 .PHONY : rebuild_cache/fast
-
-# Special rule for the target install
-install: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install
-
-# Special rule for the target install
-install/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install/fast
-
-# Special rule for the target install/local
-install/local: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local
-
-# Special rule for the target install/local
-install/local/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -296,6 +296,32 @@ dev_images_compare/fast:
 .PHONY : dev_images_compare/fast
 
 #=============================================================================
+# Target rules for targets named demo_videohash
+
+# Build rule for target.
+demo_videohash: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 demo_videohash
+.PHONY : demo_videohash
+
+# fast build rule for target.
+demo_videohash/fast:
+	$(MAKE) -f CMakeFiles/demo_videohash.dir/build.make CMakeFiles/demo_videohash.dir/build
+.PHONY : demo_videohash/fast
+
+#=============================================================================
+# Target rules for targets named demo_imagehash
+
+# Build rule for target.
+demo_imagehash: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 demo_imagehash
+.PHONY : demo_imagehash
+
+# fast build rule for target.
+demo_imagehash/fast:
+	$(MAKE) -f CMakeFiles/demo_imagehash.dir/build.make CMakeFiles/demo_imagehash.dir/build
+.PHONY : demo_imagehash/fast
+
+#=============================================================================
 # Target rules for targets named pHash-jni
 
 # Build rule for target.
@@ -307,6 +333,60 @@ pHash-jni: cmake_check_build_system
 pHash-jni/fast:
 	$(MAKE) -f bindings/java/CMakeFiles/pHash-jni.dir/build.make bindings/java/CMakeFiles/pHash-jni.dir/build
 .PHONY : pHash-jni/fast
+
+examples/demo_imagehash.o: examples/demo_imagehash.cpp.o
+
+.PHONY : examples/demo_imagehash.o
+
+# target to build an object file
+examples/demo_imagehash.cpp.o:
+	$(MAKE) -f CMakeFiles/demo_imagehash.dir/build.make CMakeFiles/demo_imagehash.dir/examples/demo_imagehash.cpp.o
+.PHONY : examples/demo_imagehash.cpp.o
+
+examples/demo_imagehash.i: examples/demo_imagehash.cpp.i
+
+.PHONY : examples/demo_imagehash.i
+
+# target to preprocess a source file
+examples/demo_imagehash.cpp.i:
+	$(MAKE) -f CMakeFiles/demo_imagehash.dir/build.make CMakeFiles/demo_imagehash.dir/examples/demo_imagehash.cpp.i
+.PHONY : examples/demo_imagehash.cpp.i
+
+examples/demo_imagehash.s: examples/demo_imagehash.cpp.s
+
+.PHONY : examples/demo_imagehash.s
+
+# target to generate assembly for a file
+examples/demo_imagehash.cpp.s:
+	$(MAKE) -f CMakeFiles/demo_imagehash.dir/build.make CMakeFiles/demo_imagehash.dir/examples/demo_imagehash.cpp.s
+.PHONY : examples/demo_imagehash.cpp.s
+
+examples/demo_videohash.o: examples/demo_videohash.cpp.o
+
+.PHONY : examples/demo_videohash.o
+
+# target to build an object file
+examples/demo_videohash.cpp.o:
+	$(MAKE) -f CMakeFiles/demo_videohash.dir/build.make CMakeFiles/demo_videohash.dir/examples/demo_videohash.cpp.o
+.PHONY : examples/demo_videohash.cpp.o
+
+examples/demo_videohash.i: examples/demo_videohash.cpp.i
+
+.PHONY : examples/demo_videohash.i
+
+# target to preprocess a source file
+examples/demo_videohash.cpp.i:
+	$(MAKE) -f CMakeFiles/demo_videohash.dir/build.make CMakeFiles/demo_videohash.dir/examples/demo_videohash.cpp.i
+.PHONY : examples/demo_videohash.cpp.i
+
+examples/demo_videohash.s: examples/demo_videohash.cpp.s
+
+.PHONY : examples/demo_videohash.s
+
+# target to generate assembly for a file
+examples/demo_videohash.cpp.s:
+	$(MAKE) -f CMakeFiles/demo_videohash.dir/build.make CMakeFiles/demo_videohash.dir/examples/demo_videohash.cpp.s
+.PHONY : examples/demo_videohash.cpp.s
 
 examples/dev_images_compare.o: examples/dev_images_compare.cpp.o
 
@@ -584,6 +664,8 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
+	@echo "... install/local"
+	@echo "... install"
 	@echo "... TestVideoHash"
 	@echo "... TestMH"
 	@echo "... pHash"
@@ -597,11 +679,17 @@ help:
 	@echo "... TestDCT"
 	@echo "... dev_images_compare"
 	@echo "... list_install_components"
+	@echo "... demo_videohash"
+	@echo "... demo_imagehash"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... install"
-	@echo "... install/local"
 	@echo "... pHash-jni"
+	@echo "... examples/demo_imagehash.o"
+	@echo "... examples/demo_imagehash.i"
+	@echo "... examples/demo_imagehash.s"
+	@echo "... examples/demo_videohash.o"
+	@echo "... examples/demo_videohash.i"
+	@echo "... examples/demo_videohash.s"
 	@echo "... examples/dev_images_compare.o"
 	@echo "... examples/dev_images_compare.i"
 	@echo "... examples/dev_images_compare.s"
