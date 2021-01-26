@@ -8,18 +8,13 @@ set(pHash_VERSION_MAJOR 1)
 set(pHash_VERSION_MINOR 0)
 set(pHash_VERSION_PATCH 0)
 
-OPTION(WITH_AUDIO_HASH "Audio hash support" 0)
-OPTION(WITH_VIDEO_HASH "Video hash support" 1)
+option(HAVE_IMAGE_HASH "Image hash support" ON)
+option(HAVE_AUDIO_HASH "Audio hash support" ON)
+option(HAVE_VIDEO_HASH "Video hash support" ON)
 
-set(HAVE_IMAGE_HASH 1)
-
-if(WITH_AUDIO_HASH)
-    set(HAVE_AUDIO_HASH 1)
-endif()
-
-if(WITH_VIDEO_HASH)
-    set(HAVE_VIDEO_HASH 1)
-endif()
+option(ENABLE_STATIC "Compile to static library" OFF)
+option(EXAMPLES "Compile examples" OFF)
+option(PACKAGE "Create package" OFF)
 
 find_path(CIMG_H_DIR NAMES CImg.h PATHS "${CMAKE_CURRENT_SOURCE_DIR}/third-party/CImg")
 include_directories(${CIMG_H_DIR})
@@ -80,67 +75,70 @@ target_link_libraries(pHash ${LIBS_DEPS})
 install(TARGETS pHash DESTINATION lib)
 install(FILES src/pHash.h DESTINATION include)
 
-set(EXAMPLEDIR examples)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
 
-if(HAVE_IMAGE_HASH)
-add_executable(TestDCT "${EXAMPLEDIR}/test_imagephash.cpp")
-target_link_libraries (TestDCT pHash)
-install(TARGETS TestDCT DESTINATION bin)
+if(EXAMPLES)
+    set(EXAMPLEDIR examples)
+    
+    if(HAVE_IMAGE_HASH)
+        add_executable(TestDCT "${EXAMPLEDIR}/test_imagephash.cpp")
+        target_link_libraries (TestDCT pHash)
+        install(TARGETS TestDCT DESTINATION bin)
 
-add_executable(TestRadish "${EXAMPLEDIR}/test_radish.cpp")
-target_link_libraries (TestRadish pHash)
-install(TARGETS TestRadish DESTINATION bin)
+        add_executable(TestRadish "${EXAMPLEDIR}/test_radish.cpp")
+        target_link_libraries (TestRadish pHash)
+        install(TARGETS TestRadish DESTINATION bin)
 
-add_executable(TestMH "${EXAMPLEDIR}/test_mhimagehash.cpp")
-target_link_libraries (TestMH pHash)
-install(TARGETS TestMH DESTINATION bin)
+        add_executable(TestMH "${EXAMPLEDIR}/test_mhimagehash.cpp")
+        target_link_libraries (TestMH pHash)
+        install(TARGETS TestMH DESTINATION bin)
+    endif()
+
+    if(HAVE_AUDIO_HASH)
+        add_executable(TestAudio "${EXAMPLEDIR}/test_audiophash.cpp")
+        target_link_libraries (TestAudio pHash)
+        install(TARGETS TestAudio DESTINATION bin)
+    endif()
+
+    if(HAVE_VIDEO_HASH)
+        add_executable(TestVideoHash "${EXAMPLEDIR}/test_dctvideohash.cpp")
+        target_link_libraries (TestVideoHash pHash)
+        install(TARGETS TestVideoHash DESTINATION bin)
+    endif()
+
+    add_executable(dev_video_compare "${EXAMPLEDIR}/dev_video_compare.cpp")
+    target_link_libraries (dev_video_compare pHash)
+    install(TARGETS dev_video_compare DESTINATION bin)
+
+    add_executable(dev_video_compare_threads "${EXAMPLEDIR}/dev_video_compare_threads.cpp")
+    target_link_libraries (dev_video_compare_threads pHash)
+    install(TARGETS dev_video_compare_threads DESTINATION bin)
+
+    add_executable(demo_videohash "${EXAMPLEDIR}/demo_videohash.cpp")
+    target_link_libraries (demo_videohash pHash)
+    install(TARGETS demo_videohash DESTINATION bin)
+
+    add_executable(dev_images_compare "${EXAMPLEDIR}/dev_images_compare.cpp")
+    target_link_libraries (dev_images_compare pHash)
+    install(TARGETS dev_images_compare DESTINATION bin)
+
+    add_executable(dev_images_compare_threads "${EXAMPLEDIR}/dev_images_compare_threads.cpp")
+    target_link_libraries (dev_images_compare_threads pHash)
+    install(TARGETS dev_images_compare_threads DESTINATION bin)
+
+    add_executable(demo_imagehash "${EXAMPLEDIR}/demo_imagehash.cpp")
+    target_link_libraries (demo_imagehash pHash)
+    install(TARGETS demo_imagehash DESTINATION bin)
 endif()
 
-if(HAVE_AUDIO_HASH)
-add_executable(TestAudio "${EXAMPLEDIR}/test_audiophash.cpp")
-target_link_libraries (TestAudio pHash)
-install(TARGETS TestAudio DESTINATION bin)
+if(PACKAGE)
+    include (InstallRequiredSystemLibraries)
+
+    set(CPACK_GENERATOR "TGZ")
+    set(CPACK_SOURCE_GENERATOR "TGZ")
+    set (CPACK_PACKAGE_VERSION_MAJOR "${pHash_VERSION_MAJOR}")
+    set (CPACK_PACKAGE_VERSION_MINOR "${pHash_VERSION_MINOR}")
+
+    include (CPack)
 endif()
-
-if(HAVE_VIDEO_HASH)
-add_executable(TestVideoHash "${EXAMPLEDIR}/test_dctvideohash.cpp")
-target_link_libraries (TestVideoHash pHash)
-install(TARGETS TestVideoHash DESTINATION bin)
-endif()
-
-add_executable(dev_video_compare "${EXAMPLEDIR}/dev_video_compare.cpp")
-target_link_libraries (dev_video_compare pHash)
-install(TARGETS dev_video_compare DESTINATION bin)
-
-add_executable(dev_video_compare_threads "${EXAMPLEDIR}/dev_video_compare_threads.cpp")
-target_link_libraries (dev_video_compare_threads pHash)
-install(TARGETS dev_video_compare_threads DESTINATION bin)
-
-add_executable(demo_videohash "${EXAMPLEDIR}/demo_videohash.cpp")
-target_link_libraries (demo_videohash pHash)
-install(TARGETS demo_videohash DESTINATION bin)
-
-add_executable(dev_images_compare "${EXAMPLEDIR}/dev_images_compare.cpp")
-target_link_libraries (dev_images_compare pHash)
-install(TARGETS dev_images_compare DESTINATION bin)
-
-add_executable(dev_images_compare_threads "${EXAMPLEDIR}/dev_images_compare_threads.cpp")
-target_link_libraries (dev_images_compare_threads pHash)
-install(TARGETS dev_images_compare_threads DESTINATION bin)
-
-add_executable(demo_imagehash "${EXAMPLEDIR}/demo_imagehash.cpp")
-target_link_libraries (demo_imagehash pHash)
-install(TARGETS demo_imagehash DESTINATION bin)
-
-
-
-include (InstallRequiredSystemLibraries)
-
-set(CPACK_GENERATOR "TGZ")
-set(CPACK_SOURCE_GENERATOR "TGZ")
-set (CPACK_PACKAGE_VERSION_MAJOR "${pHash_VERSION_MAJOR}")
-set (CPACK_PACKAGE_VERSION_MINOR "${pHash_VERSION_MINOR}")
-
-include (CPack)
